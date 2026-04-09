@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class CursoController extends Controller
 {
-    public function index()
+        public function index()
     {
         $cursos = Curso::query()
             ->latest()
@@ -24,7 +24,8 @@ class CursoController extends Controller
     public function store(Request $request)
     {
         $dados = $request->validate([
-            'nome' => ['required', 'string', 'max:255'],
+            'nome' => ['required', 'string', 'max:255'], 
+            'semestres' => ['required', 'integer', 'min:1'],
             'descricao' => ['required', 'string'],
         ]);
 
@@ -38,6 +39,7 @@ class CursoController extends Controller
     public function edit(Curso $curso)
     {
         return view('cursos.edit', compact('curso'));
+
     }
 
     public function update(Request $request, Curso $curso)
@@ -45,6 +47,7 @@ class CursoController extends Controller
         $dados = $request->validate([
             'nome' => ['required', 'string', 'max:255'],
             'descricao' => ['required', 'string'],
+            'semestres' => ['required', 'integer', 'min:1'],
         ]);
 
         $curso->update($dados);
